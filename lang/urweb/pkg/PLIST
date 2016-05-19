@@ -1,0 +1,55 @@
+@comment $OpenBSD$
+@bin bin/urweb
+include/urweb/
+include/urweb/config.h
+include/urweb/queue.h
+include/urweb/request.h
+include/urweb/types.h
+include/urweb/types_cpp.h
+include/urweb/urweb.h
+include/urweb/urweb_cpp.h
+lib/liburweb.a
+lib/liburweb.la
+@lib lib/liburweb.so.0.0
+lib/liburweb_cgi.a
+lib/liburweb_cgi.la
+@lib lib/liburweb_cgi.so.0.0
+lib/liburweb_fastcgi.a
+lib/liburweb_fastcgi.la
+@lib lib/liburweb_fastcgi.so.0.0
+lib/liburweb_http.a
+lib/liburweb_http.la
+@lib lib/liburweb_http.so.0.0
+lib/liburweb_static.a
+lib/liburweb_static.la
+@lib lib/liburweb_static.so.0.0
+lib/urweb/
+lib/urweb/js/
+lib/urweb/js/urweb.js
+lib/urweb/ur/
+lib/urweb/ur/basis.urs
+lib/urweb/ur/char.ur
+lib/urweb/ur/char.urs
+lib/urweb/ur/datetime.ur
+lib/urweb/ur/datetime.urs
+lib/urweb/ur/list.ur
+lib/urweb/ur/list.urs
+lib/urweb/ur/listPair.ur
+lib/urweb/ur/listPair.urs
+lib/urweb/ur/monad.ur
+lib/urweb/ur/monad.urs
+lib/urweb/ur/option.ur
+lib/urweb/ur/option.urs
+lib/urweb/ur/string.ur
+lib/urweb/ur/string.urs
+lib/urweb/ur/top.ur
+lib/urweb/ur/top.urs
+share/emacs/
+share/emacs/site-lisp/
+share/emacs/site-lisp/urweb-mode/
+share/emacs/site-lisp/urweb-mode/urweb-compat.el
+share/emacs/site-lisp/urweb-mode/urweb-defs.el
+share/emacs/site-lisp/urweb-mode/urweb-mode-startup.el
+share/emacs/site-lisp/urweb-mode/urweb-mode.el
+share/emacs/site-lisp/urweb-mode/urweb-move.el
+share/emacs/site-lisp/urweb-mode/urweb-util.el
