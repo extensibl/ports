@@ -1,20 +1,24 @@
-# $OpenBSD: Makefile,v 1.7 2013/03/11 10:50:31 espie Exp $
 
-COMMENT=	MLton compiler
-DISTNAME=   mlton-20160519
+COMMENT=    MLton compiler
+DISTNAME=   mlton-snapshot
 REVISION=   7
 CATEGORIES= lang
 
-MAINTAINER=     Alexander Abushkevich <alex@abushkevi.ch>
+MAINTAINER=     Alexander Abushkevich <alex@extensibl.com>
 
-HOMEPAGE=	http://mlton.org
+HOMEPAGE=       http://mlton.org
 
 GH_ACCOUNT=     extensibl
 GH_PROJECT=     mlton
-#GH_COMMIT=      3bca4208edb4070ba46b5727a2b14ad753a99773
-#GH_COMMIT=      92fba119d48d62b115ac0d441dcbe84285a6a061
 GH_COMMIT=      a3c9b441f693124016114fff59341db2a710eb4a
-WRKDIST =       ${WRKDIR}/mlton-${GH_COMMIT}
+
+DISTFILES =   a3c9b441f693124016114fff59341db2a710eb4a.tar.gz:0
+SUPFILES =    mlton-bootstrap-OpenBSD-5.9-amd64.tar.gz:1
+.if defined(SUPFILES)
+DISTFILES   += ${SUPFILES}
+.endif
+MASTER_SITES0 = https://github.com/extensibl/mlton/archive/
+MASTER_SITES1 = https://extensibl.com/pub/mlton/
 
 ONLY_FOR_ARCHS = amd64
 
@@ -24,12 +28,22 @@ PERMIT_PACKAGE_FTP=     Yes
 PERMIT_DISTFILES_FTP=   Yes
 
 USE_GMAKE=              Yes
-NO_CHECKSUM=            No
+#WANTLIB +=              c m
+#CONFIGURE_STYLE =       simple
+#BUILD_DEPENDS =         shells/bash archivers/gtar lang/gcc devel/gmp
+MAKE_ENV =  PATH=${PATH}:${WRKBUILD}/build/bin/
 
 
-#post-extract:
-#	tar xzf /home/a/Projects/mlton-s/mlton.cs.amd64.tar.gz
-#	gcc -fPIC -static -c -Ibuild/lib/include -Ibuild/lib/targets/unknown/include -I/usr/local/include -O1 -w mlton/mlton.*.[cs]
-#	gcc -s -Xlinker -zmuldefs -static -o build/lib/mlton-compile -Lbuild/lib/targets/unknown -L/usr/local/lib mlton.*.o -lmlton -lgmp -lgdtoa -lm
+pre-build:
+        echo ${WRKBUILD}
+        echo ${WRKSRC}
+        cd ${WRKBUILD} && ${GMAKE} dirs runtime
+        cd ${WRKBUILD} && cp -r ../bootstrap .
+        cd ${WRKBUILD} && ${MAKE} -C bootstrap
+        cd ${WRKBUILD} && cp bootstrap/mlton-compile build/lib/
+        cd ${WRKBUILD} && cp bootstrap/yacc.grm.* mlyacc/src/
+
+do-build:
+        cd ${WRKBUILD} && ${GMAKE} basis-no-check script mlbpathmap constants libraries tools
 
 .include <bsd.port.mk>
