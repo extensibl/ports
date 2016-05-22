@@ -1,7 +1,6 @@
-
 COMMENT=    MLton compiler
 DISTNAME=   mlton-snapshot
-REVISION=   7
+REVISION=   9
 CATEGORIES= lang
 
 MAINTAINER=     Alexander Abushkevich <alex@extensibl.com>
@@ -11,8 +10,10 @@ HOMEPAGE=       http://mlton.org
 GH_ACCOUNT=     extensibl
 GH_PROJECT=     mlton
 GH_COMMIT=      a3c9b441f693124016114fff59341db2a710eb4a
+COMMIT=      a3c9b441f693124016114fff59341db2a710eb4a
 
-DISTFILES =   a3c9b441f693124016114fff59341db2a710eb4a.tar.gz:0
+
+DISTFILES =   ${COMMIT}.tar.gz:0
 SUPFILES =    mlton-bootstrap-OpenBSD-5.9-amd64.tar.gz:1
 .if defined(SUPFILES)
 DISTFILES   += ${SUPFILES}
@@ -28,22 +29,25 @@ PERMIT_PACKAGE_FTP=     Yes
 PERMIT_DISTFILES_FTP=   Yes
 
 USE_GMAKE=              Yes
-#WANTLIB +=              c m
-#CONFIGURE_STYLE =       simple
-#BUILD_DEPENDS =         shells/bash archivers/gtar lang/gcc devel/gmp
-MAKE_ENV =  PATH=${PATH}:${WRKBUILD}/build/bin/
+WANTLIB +=              c m gmp
+BUILD_DEPENDS =         shells/bash archivers/gtar devel/gmp
+MAKE_ENV =  PATH=${PATH}:${WRKBUILD}/build/bin/:${WRKBUILD}/mllex/
 
 
 pre-build:
-        echo ${WRKBUILD}
         echo ${WRKSRC}
+        echo ${WRKDIR}
         cd ${WRKBUILD} && ${GMAKE} dirs runtime
-        cd ${WRKBUILD} && cp -r ../bootstrap .
+        @if [ ! -d ${WRKBUILD}/bootstrap ]; then \
+                cd ${WRKBUILD} && cp -r ../bootstrap . \
+        fi
         cd ${WRKBUILD} && ${MAKE} -C bootstrap
         cd ${WRKBUILD} && cp bootstrap/mlton-compile build/lib/
         cd ${WRKBUILD} && cp bootstrap/yacc.grm.* mlyacc/src/
 
 do-build:
-        cd ${WRKBUILD} && ${GMAKE} basis-no-check script mlbpathmap constants libraries tools
+        cd ${WRKBUILD} && ${GMAKE} basis-no-check script mlbpathmap constants libraries
+        cd ${WRKBUILD} && PATH=${PATH}:${WRKBUILD}/mllex/ ${GMAKE} tools
+        cd ${WRKBUILD} && ${GMAKE} install
 
 .include <bsd.port.mk>
