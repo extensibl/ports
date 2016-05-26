@@ -8,21 +8,22 @@ include/urweb/types.h
 include/urweb/types_cpp.h
 include/urweb/urweb.h
 include/urweb/urweb_cpp.h
+include/urweb/uthash.h
 lib/liburweb.a
 lib/liburweb.la
-@lib lib/liburweb.so.0.0
+@lib lib/liburweb.so.${LIBurweb_VERSION}
 lib/liburweb_cgi.a
 lib/liburweb_cgi.la
-@lib lib/liburweb_cgi.so.0.0
+@lib lib/liburweb_cgi.so.${LIBurweb_cgi_VERSION}
 lib/liburweb_fastcgi.a
 lib/liburweb_fastcgi.la
-@lib lib/liburweb_fastcgi.so.0.0
+@lib lib/liburweb_fastcgi.so.${LIBurweb_fastcgi_VERSION}
 lib/liburweb_http.a
 lib/liburweb_http.la
-@lib lib/liburweb_http.so.0.0
+@lib lib/liburweb_http.so.${LIBurweb_http_VERSION}
 lib/liburweb_static.a
 lib/liburweb_static.la
-@lib lib/liburweb_static.so.0.0
+@lib lib/liburweb_static.so.${LIBurweb_static_VERSION}
 lib/urweb/
 lib/urweb/js/
 lib/urweb/js/urweb.js

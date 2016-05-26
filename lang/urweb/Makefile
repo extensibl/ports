@@ -1,32 +1,39 @@
-# $OpenBSD: Makefile,v 1.7 2013/03/11 10:50:31 espie Exp $
+COMMENT =    Ur/Web compiler and library
+V =          20160515
+DISTNAME =   urweb-${V}
+REVISION =   1
+CATEGORIES = lang
 
-COMMENT=	Ur/Web compiler
-EXTRACT_SUFX=   .tgz
-DISTNAME=	urweb-20150520
-REVISION=	10
-CATEGORIES=	lang
+MAINTAINER = Alexander Abushkevich <alex@extensibl.com>
+HOMEPAGE =   http://www.impredicative.com/ur/
 
-MAINTAINER=     Alexander Abushkevich <alex@abushkevi.ch>
+EXTRACT_SUFX = .tgz
+DISTFILES =    urweb-${V}${EXTRACT_SUFX}
 
-HOMEPAGE=	http://impredicative.com/ur/
-MASTER_SITES=	http://impredicative.com/ur/
+MASTER_SITES = http://www.impredicative.com/ur/
 
-#WRKDIST =	${WRKDIR}/${DISTNAME}
+ONLY_FOR_ARCHS = amd64 
 
-# BSD
-PERMIT_PACKAGE_CDROM=	Yes
-PERMIT_PACKAGE_FTP=     Yes
-PERMIT_DISTFILES_FTP=   Yes
+# BSD/MIT
+PERMIT_PACKAGE_CDROM =  Yes
+PERMIT_PACKAGE_FTP =    Yes
+PERMIT_DISTFILES_FTP =  Yes
 
-WANTLIB= crypto m pthread ssl
+CONFIGURE_STYLE= gnu
+CONFIGURE_ARGS = "MLTONARGS= -codegen c"
+USE_GMAKE =      Yes
+#SEPARATE_BUILD = Yes
+WANTLIB +=       c m 
+BUILD_DEPENDS =  lang/mlton
+LIB_DEPENDS =    devel/gmp
 
-USE_GMAKE=		Yes
-NO_CHECKSUM=            No
-
-RUN_DEPENDS=		
-BUILD_DEPENDS=		lang/mlton
-
-CONFIGURE_STYLE=        simple
+SO_VERSION =    0.0
+SHARED_LIBS +=  urweb                    ${SO_VERSION}
+SHARED_LIBS +=  urweb_cgi                ${SO_VERSION}
+SHARED_LIBS +=  urweb_fastcgi            ${SO_VERSION}
+SHARED_LIBS +=  urweb_http               ${SO_VERSION}
+SHARED_LIBS +=  urweb_static             ${SO_VERSION}
 
 
 .include <bsd.port.mk>
+
