@@ -51,7 +51,6 @@ do-build:
 # Instructions on how to generate bootstrap files:
 BOOTSTRAP_DIR=  ${WRKDIR}/bootstrap-new/bootstrap
 bootstrap: fake
-	echo ${BOOTSTRAP_DIR}
 	cd ${WRKBUILD} && ${GMAKE} # First round of compilation
 	# Recompile mlton with itself, keep intermediary files for further use as bootstrap. 
 	# Extra recompilation cycle makes sense when MLton versions change.
