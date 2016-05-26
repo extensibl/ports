@@ -1,0 +1,30 @@
+$OpenBSD$
+--- Makefile.orig	Mon Jul 15 19:59:09 2013
++++ Makefile	Thu May 26 13:01:56 2016
+@@ -284,7 +284,7 @@ check:
+ # puts them.
+ DESTDIR := $(CURDIR)/install
+ PREFIX := /usr
+-ifeq ($(findstring $(TARGET_OS), darwin freebsd solaris), $(TARGET_OS))
++ifeq ($(findstring $(TARGET_OS), darwin freebsd openbsd solaris), $(TARGET_OS))
+ PREFIX := /usr/local
+ endif
+ ifeq ($(TARGET_OS), mingw)
+@@ -303,7 +303,7 @@ endif
+ TEXM := $(TDOC)/examples
+ 
+ GZIP_MAN := true
+-ifeq ($(TARGET_OS), solaris)
++ifeq ($(TARGET_OS), openbsd solaris)
+ GZIP_MAN := false
+ endif
+ 
+@@ -399,7 +399,7 @@ move-docs:	install-docs install-no-docs
+ 
+ .PHONY: release
+ release: version
+-	tar cvzf ../mlton-$(VERSION).src.tgz \
++	gtar cvzf ../mlton-$(VERSION).src.tgz \
+ 		--exclude .git --exclude package \
+ 		--transform "s@^@mlton-$(VERSION)/@S" \
+ 		*

@@ -1,0 +1,11 @@
+$OpenBSD$
+--- mlton/Makefile.orig	Thu May 26 13:14:05 2016
++++ mlton/Makefile	Thu May 26 13:14:43 2016
+@@ -45,6 +45,7 @@ endif
+ endif
+ 
+ FLAGS += -target $(TARGET)
++FLAGS += -codegen c
+ FLAGS += -verbose 2 -output "$(AOUT)"
+ FLAGS += $(COMPILE_ARGS)
+ 

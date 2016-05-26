@@ -1,0 +1,12 @@
+$OpenBSD$
+--- mlnlffigen/Makefile.orig	Thu May 26 13:12:40 2016
++++ mlnlffigen/Makefile	Thu May 26 13:12:59 2016
+@@ -11,7 +11,7 @@ BIN := $(BUILD)/bin
+ LIB := $(BUILD)/lib
+ MLTON := mlton
+ TARGET := self
+-FLAGS := -target $(TARGET) -default-ann 'sequenceNonUnit warn'
++FLAGS := -codegen c -target $(TARGET) -default-ann 'sequenceNonUnit warn'
+ NAME := mlnlffigen
+ PATH := $(BIN):$(shell echo $$PATH)
+ 
