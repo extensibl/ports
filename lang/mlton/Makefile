@@ -51,13 +51,12 @@ do-build:
 # Instructions on how to generate bootstrap files:
 BOOTSTRAP_DIR=  ${WRKDIR}/bootstrap-new/bootstrap
 bootstrap: fake
-	echo ${BOOTSTRAP_DIR}
 	cd ${WRKBUILD} && ${GMAKE} # First round of compilation
 	# Recompile mlton with itself, keep intermediary files for further use as bootstrap. 
 	# Extra recompilation cycle makes sense when MLton versions change.
 	cd ${WRKBUILD}/mlton && ${GMAKE} clean 
 	cd ${WRKBUILD}/mlton && rm -f mlton-compile
-	cd ${WRKBUILD} && PATH=${PATH}:${WRKBUILD}/build/bin/ COMPILE_ARGS=" -keep g " ${MAKE}	
+	cd ${WRKBUILD} && PATH=${PATH}:${WRKBUILD}/build/bin/ COMPILE_ARGS=" -keep g " ${GMAKE}	
 	
 	# Archive bootstrap files
 	mkdir -p ${BOOTSTRAP_DIR}
@@ -65,7 +64,7 @@ bootstrap: fake
 	cp ${WRKBUILD}/mlyacc/src/yacc.grm.* ${BOOTSTRAP_DIR}
 	cp ${WRKBUILD}/bootstrap/Makefile ${BOOTSTRAP_DIR}
 	cp ${WRKBUILD}/bootstrap/README ${BOOTSTRAP_DIR}
-	cd ${WRKDIR} && tar zcf mlton-${V}-bootstrap-OpenBSD-${OSREV}-${MACHINE_ARCH}.tar.gz ${BOOTSTRAP_DIR}
+	cd ${WRKDIR}/bootstrap-new/ && tar zcf mlton-${V}-bootstrap-OpenBSD-${OSREV}-${MACHINE_ARCH}.tar.gz bootstrap
 	
 
 .include <bsd.port.mk>
