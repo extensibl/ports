@@ -8,7 +8,10 @@ HOMEPAGE =   http://mlton.org
 
 DISTFILES =  on-${V}-release${EXTRACT_SUFX}:0
 SUPFILES =   mlton-${V}-bootstrap-OpenBSD-${OSREV}-${MACHINE_ARCH}.tar.gz:1
+
+.if defined(SUPFILES)
 DISTFILES += ${SUPFILES}
+.endif
 
 MASTER_SITES0 = https://github.com/MLton/mlton/archive/
 MASTER_SITES1 = https://extensibl.com/pub/mlton/
