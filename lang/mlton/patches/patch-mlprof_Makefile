@@ -1,4 +1,8 @@
 $OpenBSD$
+
+Use C codegen for mlton-20130715.
+See https://github.com/MLton/mlton/issues/148 for details.
+
 --- mlprof/Makefile.orig	Thu May 26 13:13:24 2016
 +++ mlprof/Makefile	Thu May 26 13:13:46 2016
 @@ -13,7 +13,7 @@ BIN := $(BUILD)/bin

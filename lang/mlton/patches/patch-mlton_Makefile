@@ -1,4 +1,10 @@
 $OpenBSD$
+
+Use C codegen for mlton-20130715.
+See https://github.com/MLton/mlton/issues/148 for details.
+
+Also set proper version without using git.
+
 --- mlton/Makefile.orig	Thu May 26 13:14:05 2016
 +++ mlton/Makefile	Thu May 26 13:14:43 2016
 @@ -45,6 +45,7 @@ endif
@@ -9,3 +15,12 @@ $OpenBSD$
  FLAGS += -verbose 2 -output "$(AOUT)"
  FLAGS += $(COMPILE_ARGS)
  
+@@ -67,7 +68,7 @@
+ 
+ control/version.sml: control/version_sml.src
+ 	cat control/version_sml.src |				\
+-		sed "s/MLTONVERSION/$$(git log -n1 --pretty="g%h$$(if [ $$(git status --porcelain 2> /dev/null | wc -l) -ne 0 ]; then echo '-dirty'; fi)" 2> /dev/null || echo "???????")/" |	\
++		sed "s/MLTONVERSION/20130715/" |	\
+ 		sed "s/MLTONBUILDDATE/$$(LANG=C date)/" |	\
+ 		sed "s/MLTONBUILDNODE/$$(uname -n)/" >		\
+ 		control/version.sml

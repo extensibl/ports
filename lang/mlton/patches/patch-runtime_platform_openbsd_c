@@ -1,4 +1,8 @@
 $OpenBSD$
+
+Add OpenBSD profiling handler for MLton-20130715.
+This has been added into the development branch of MLton.
+
 --- runtime/platform/openbsd.c.orig	Thu May 26 13:06:51 2016
 +++ runtime/platform/openbsd.c	Thu May 26 13:05:24 2016
 @@ -11,7 +11,13 @@ static void catcher (__attribute__ ((unused)) int sign

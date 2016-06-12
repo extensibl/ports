@@ -1,4 +1,10 @@
 $OpenBSD$
+
+1. PREFIX has to be /usr/local for OpenBSD
+2. Do not gzip manpages on OpenBSD
+3. BSD tar does not support "--exclude" option.
+   See https://github.com/MLton/mlton/issues/146 for more detail
+
 --- Makefile.orig	Mon Jul 15 19:59:09 2013
 +++ Makefile	Thu May 26 13:01:56 2016
 @@ -284,7 +284,7 @@ check:

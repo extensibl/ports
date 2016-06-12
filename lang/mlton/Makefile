@@ -1,7 +1,6 @@
 COMMENT =    MLton compiler
 V =          20130715
 DISTNAME =   mlton-${V}
-REVISION =   1
 CATEGORIES = lang
 
 MAINTAINER = Alexander Abushkevich <alex@extensibl.com>
@@ -9,10 +8,7 @@ HOMEPAGE =   http://mlton.org
 
 DISTFILES =  on-${V}-release${EXTRACT_SUFX}:0
 SUPFILES =   mlton-${V}-bootstrap-OpenBSD-${OSREV}-${MACHINE_ARCH}.tar.gz:1
-
-.if defined(SUPFILES)
 DISTFILES += ${SUPFILES}
-.endif
 
 MASTER_SITES0 = https://github.com/MLton/mlton/archive/
 MASTER_SITES1 = https://extensibl.com/pub/mlton/
@@ -21,8 +17,6 @@ ONLY_FOR_ARCHS = amd64
 
 # BSD/MIT
 PERMIT_PACKAGE_CDROM =  Yes
-PERMIT_PACKAGE_FTP =    Yes
-PERMIT_DISTFILES_FTP =  Yes
 
 WRKDIST =       ${WRKDIR}/mlton-on-$V-release
 
@@ -33,22 +27,23 @@ BUILD_DEPENDS = shells/bash archivers/gtar
 LIB_DEPENDS =   devel/gmp
 MAKE_ENV =      PATH=${PATH}:${WRKBUILD}/build/bin/:${WRKBUILD}/mllex/
 
+post-extract:
+	mv ${WRKDIR}/bootstrap ${WRKBUILD}/ 
+
 do-build:
+	# Prerequisites, directory layout
 	cd ${WRKBUILD} && WITH_GMP=/usr/local ${GMAKE} dirs runtime
-
-.if ! exists( ${WRKBUILD}/bootstrap )
-	cd ${WRKBUILD} && cp -r ../bootstrap .
-.endif
-
+	# Compile, link MLton compiler executable from bootstrap C sources,
+	# because we do not have any SML compiler available yet.
+	# Also copy bootstrap files for mlyacc. 
 	cd ${WRKBUILD} && ${MAKE} -C bootstrap compile_bootstrap
-	cd ${WRKBUILD} && cp bootstrap/mlton-compile build/lib/
-	cd ${WRKBUILD} && cp bootstrap/yacc.grm.* mlyacc/src/
-
+	cd ${WRKBUILD} && mv bootstrap/mlton-compile build/lib/
+	cd ${WRKBUILD} && mv bootstrap/yacc.grm.* mlyacc/src/
+	# Now build the rest with the bootstrapped MLton compiler
 	cd ${WRKBUILD} && ${GMAKE} basis-no-check script mlbpathmap constants libraries
 	cd ${WRKBUILD} && PATH=${PATH}:${WRKBUILD}/mllex/ ${GMAKE} tools
-	cd ${WRKBUILD} && ${GMAKE} install
 
-# Instructions on how to generate bootstrap files:
+# bootstrap target generates MLton (and mlyacc) bootstrap files
 BOOTSTRAP_DIR=  ${WRKDIR}/bootstrap-new/bootstrap
 bootstrap: fake
 	cd ${WRKBUILD} && ${GMAKE} # First round of compilation
@@ -60,12 +55,11 @@ bootstrap: fake
 	
 	# Archive bootstrap files
 	mkdir -p ${BOOTSTRAP_DIR}
-	cp ${WRKBUILD}/mlton/*.c ${BOOTSTRAP_DIR}
-	cp ${WRKBUILD}/mlyacc/src/yacc.grm.* ${BOOTSTRAP_DIR}
-	cp ${WRKBUILD}/bootstrap/Makefile ${BOOTSTRAP_DIR}
-	cp ${WRKBUILD}/bootstrap/README ${BOOTSTRAP_DIR}
+	mv ${WRKBUILD}/mlton/*.c ${BOOTSTRAP_DIR}
+	mv ${WRKBUILD}/mlyacc/src/yacc.grm.* ${BOOTSTRAP_DIR}
+	mv ${WRKBUILD}/bootstrap/Makefile ${BOOTSTRAP_DIR}
+	mv ${WRKBUILD}/bootstrap/README ${BOOTSTRAP_DIR}
 	cd ${WRKDIR}/bootstrap-new/ && tar zcf mlton-${V}-bootstrap-OpenBSD-${OSREV}-${MACHINE_ARCH}.tar.gz bootstrap
-	
 
 .include <bsd.port.mk>
 
