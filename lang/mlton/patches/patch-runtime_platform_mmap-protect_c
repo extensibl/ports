@@ -1,0 +1,15 @@
+$OpenBSD$
+
+Try to not violate W^X
+
+--- runtime/platform/mmap-protect.c.orig	Mon Jun 13 08:23:53 2016
++++ runtime/platform/mmap-protect.c	Mon Jun 13 08:24:12 2016
+@@ -7,7 +7,7 @@ void *GC_mmapAnon_safe_protect (void *start, size_t le
+         if (mprotect (low, dead_low, PROT_NONE))
+                 diee ("mprotect failed");
+         result = (void*)((pointer)low + dead_low);
+-        if (mprotect (result, length, PROT_READ | PROT_WRITE | PROT_EXEC))
++        if (mprotect (result, length, PROT_READ | PROT_WRITE))
+                 diee ("mprotect failed");
+         high = (void*)((pointer)result + length);
+         if (mprotect (high, dead_high, PROT_NONE))

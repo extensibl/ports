@@ -1,4 +1,4 @@
-SHA256 (mlton-20130715-bootstrap-OpenBSD-6.0-amd64.tar.gz) = timgcakzLmMObW9AhWg0PIZbfWUISTZPwa7yej87MlM=
+SHA256 (mlton-20130715-bootstrap-OpenBSD-6.0-amd64.tar.gz) = 7FxIPQbsl+ZFtTYb/GgYBjc5rwj3TSXCtUvRG7mFBx4=
 SHA256 (on-20130715-release.tar.gz) = YLhlfBlmccyOGHkNGcyjXWi8Nd6Ja3xdZ+XMVKYJ/w8=
-SIZE (mlton-20130715-bootstrap-OpenBSD-6.0-amd64.tar.gz) = 7101724
+SIZE (mlton-20130715-bootstrap-OpenBSD-6.0-amd64.tar.gz) = 6535277
 SIZE (on-20130715-release.tar.gz) = 14025069

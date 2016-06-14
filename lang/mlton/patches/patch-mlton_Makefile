@@ -1,21 +1,10 @@
 $OpenBSD$
 
-Use C codegen for mlton-20130715.
-See https://github.com/MLton/mlton/issues/148 for details.
+Set proper release version without using git.
 
-Also set proper version without using git.
-
---- mlton/Makefile.orig	Thu May 26 13:14:05 2016
-+++ mlton/Makefile	Thu May 26 13:14:43 2016
-@@ -45,6 +45,7 @@ endif
- endif
- 
- FLAGS += -target $(TARGET)
-+FLAGS += -codegen c
- FLAGS += -verbose 2 -output "$(AOUT)"
- FLAGS += $(COMPILE_ARGS)
- 
-@@ -67,7 +68,7 @@
+--- mlton/Makefile.orig	Tue Jul 16 05:59:09 2013
++++ mlton/Makefile	Mon Jun 13 08:58:05 2016
+@@ -67,7 +67,7 @@ all: $(AOUT)
  
  control/version.sml: control/version_sml.src
  	cat control/version_sml.src |				\

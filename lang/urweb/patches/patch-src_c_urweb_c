@@ -1,0 +1,25 @@
+$OpenBSD$
+
+Silences gcc warnings. Included into the upstream development branch.
+This patch could be removed after the next release.
+
+--- src/c/urweb.c.orig	Mon Jun 13 12:29:06 2016
++++ src/c/urweb.c	Mon Jun 13 12:29:45 2016
+@@ -4713,7 +4713,7 @@ uw_Sqlcache_Value *uw_Sqlcache_check(uw_context ctx, u
+   char *key = uw_Sqlcache_allocKeyBuffer(keys, numKeys);
+   char *buf = key;
+   time_t timeInvalid = cache->timeInvalid;
+-  uw_Sqlcache_Entry *entry;
++  uw_Sqlcache_Entry *entry = NULL;
+   if (numKeys == 0) {
+     entry = cache->table;
+     if (!entry) {
+@@ -4748,7 +4748,7 @@ static void uw_Sqlcache_storeCommitOne(uw_Sqlcache_Cac
+   pthread_rwlock_wrlock(&cache->lockIn);
+   size_t numKeys = cache->numKeys;
+   time_t timeNow = uw_Sqlcache_getTimeNow(cache);
+-  uw_Sqlcache_Entry *entry;
++  uw_Sqlcache_Entry *entry = NULL;
+   if (numKeys == 0) {
+     entry = cache->table;
+     if (!entry) {

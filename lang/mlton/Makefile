@@ -27,6 +27,7 @@ USE_GMAKE =     Yes
 MODULES +=      gnu
 WANTLIB +=      c m gmp
 BUILD_DEPENDS = shells/bash archivers/gtar
+RUN_DEPENDS   = shells/bash
 LIB_DEPENDS =   devel/gmp
 MAKE_ENV =      PATH=${PATH}:${WRKBUILD}/build/bin/:${WRKBUILD}/mllex/
 
@@ -59,6 +60,7 @@ bootstrap: fake
 	# Archive bootstrap files
 	mkdir -p ${BOOTSTRAP_DIR}
 	mv ${WRKBUILD}/mlton/*.c ${BOOTSTRAP_DIR}
+	mv ${WRKBUILD}/mlton/*.s ${BOOTSTRAP_DIR}
 	mv ${WRKBUILD}/mlyacc/src/yacc.grm.* ${BOOTSTRAP_DIR}
 	mv ${WRKBUILD}/bootstrap/Makefile ${BOOTSTRAP_DIR}
 	mv ${WRKBUILD}/bootstrap/README ${BOOTSTRAP_DIR}

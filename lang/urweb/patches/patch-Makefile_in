@@ -1,0 +1,15 @@
+$OpenBSD$
+
+Do not run ldconfig without parameters on OpenBSD
+
+--- Makefile.in.orig	Mon Jun 13 12:47:55 2016
++++ Makefile.in	Mon Jun 13 12:48:08 2016
+@@ -893,7 +893,7 @@ install-exec-local-main:
+ 	cp $(srcdir)/include/urweb/*.h $(DESTDIR)$(INCLUDE)/
+ 
+ install-exec-local: install-exec-local-main install-exec-emacs
+-	-ldconfig
++	#-ldconfig
+ 
+ uninstall-emacs:
+ @USE_EMACS_TRUE@	rm -f $(DESTDIR)$(SITELISP)/urweb-compat.el $(DESTDIR)$(SITELISP)/urweb-mode.el $(DESTDIR)$(SITELISP)/urweb-move.el \
