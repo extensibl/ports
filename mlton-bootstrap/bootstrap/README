@@ -1,0 +1,63 @@
+
+GENERATES (OR COMPILES) MLTON BOOTSTRAP FILES
+=============================================
+
+Note: Most likely you need to jump to step 2 - compile bootstrap.
+
+1. On a machine with preinstalled MLton compiler.
+-------------------------------------------------
+
+Run:
+
+    $ make generate_bootstrap
+
+Requires approx. 2GB of RAM or more.
+
+Generates .c files needed to bootstrap MLton on a machine without 
+mlton compiler. Also generates yacc.grm.sml and yacc.grm.sig - 
+mlyacc needs to be compiled with itself, too.
+
+This is NOT a cross-platform compilation script, both parts 
+need to be run on the same platform/architecture/OS version.
+
+For details on cross-compilation, see http://mlton.org/Development
+Also review bin/add-cross and bin/build-cross-gcc scripts.
+
+
+2. On target machine with no MLton.
+-----------------------------------
+
+Refer to OpenBSD lang/mlton port for details.
+
+
+Simplified manual process is:
+
+Unpack MLton sources into ${MLTON_SRC}, run:
+
+    $ gmake dirs runtime
+
+Unpack bootstrap, put bootstrap directory into ${MLTON_SRC}:
+
+    $ cd ${MLTON_SRC}
+    $ tar xzf mlton-bootstrap-OpenBSD-5.9-amd64.tar.gz
+    
+Compile bootstrap (that replaces MLton's `gmake compiler' step):
+
+    $ cd ${MLTON_SRC}/bootstrap 
+    $ make compile_bootstrap 
+
+Copy mlton-compile executable into ${MLTON_SRC}/build/lib/ directory,
+adjust your PATH to include  ${MLTON_SRC}/build/bin.
+    
+    $ cp ${MLTON_SRC}/bootstrap/mlton-compile ${MLTON_SRC}/build/lib/
+    $ export PATH=${PATH}:${MLTON_SRC}/build/bin
+    
+Run the remaining MLton build steps, i.e.:
+
+    $ gmake basis-no-check script mlbpathmap constants libraries
+
+Add ${MLTON_SRC}/mllex to your PATH, copy yacc.grm.s* from bootstrap, 
+then run:
+
+    $ gmake tools
+
