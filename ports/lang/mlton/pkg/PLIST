@@ -2511,11 +2511,11 @@ lib/mlton/targets/self/os
 lib/mlton/targets/self/sizes
 lib/mlton/targets/self/sml/
 lib/mlton/targets/self/sml/c-types.sml
-@man man/man1/mllex.1.gz
-@man man/man1/mlnlffigen.1.gz
-@man man/man1/mlprof.1.gz
-@man man/man1/mlton.1.gz
-@man man/man1/mlyacc.1.gz
+@man man/man1/mllex.1
+@man man/man1/mlnlffigen.1
+@man man/man1/mlprof.1
+@man man/man1/mlton.1
+@man man/man1/mlyacc.1
 share/doc/mlton/
 share/doc/mlton/README
 share/doc/mlton/basis/
