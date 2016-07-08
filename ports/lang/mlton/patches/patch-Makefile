@@ -1,22 +1,27 @@
 $OpenBSD$
 
-1. PREFIX has to be /usr/local for OpenBSD
+1. Use PREFIX:=$(LOCALBASE) on OpenBSD. 
+   Note that MLton build system is being updated and this change
+   might be not needed for later releases.
+   https://github.com/MLton/mlton/issues/131
 2. Do not gzip manpages on OpenBSD. Committed upstream:
     https://github.com/MLton/mlton/commit/8c97afed578453023c05c51d071855fc9e64ecdf
 3. BSD tar does not support "--exclude" option.
    See https://github.com/MLton/mlton/issues/146 for more detail
 
---- Makefile.orig	Mon Jul 15 19:59:09 2013
-+++ Makefile	Thu May 26 13:01:56 2016
-@@ -284,7 +284,7 @@ check:
+--- Makefile.orig	Tue Jul 16 07:59:09 2013
++++ Makefile	Fri Jul  8 17:34:03 2016
+@@ -284,8 +284,8 @@ check:
  # puts them.
  DESTDIR := $(CURDIR)/install
  PREFIX := /usr
 -ifeq ($(findstring $(TARGET_OS), darwin freebsd solaris), $(TARGET_OS))
+-PREFIX := /usr/local
 +ifeq ($(findstring $(TARGET_OS), darwin freebsd openbsd solaris), $(TARGET_OS))
- PREFIX := /usr/local
++PREFIX := $(LOCALBASE)
  endif
  ifeq ($(TARGET_OS), mingw)
+ PREFIX := /mingw
 @@ -303,7 +303,7 @@ endif
  TEXM := $(TDOC)/examples
  
