@@ -1,7 +1,8 @@
 $OpenBSD$
 
 1. PREFIX has to be /usr/local for OpenBSD
-2. Do not gzip manpages on OpenBSD
+2. Do not gzip manpages on OpenBSD. Committed upstream:
+    https://github.com/MLton/mlton/commit/8c97afed578453023c05c51d071855fc9e64ecdf
 3. BSD tar does not support "--exclude" option.
    See https://github.com/MLton/mlton/issues/146 for more detail
 

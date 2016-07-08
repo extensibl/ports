@@ -1,6 +1,7 @@
 $OpenBSD$
 
-Use PIC on OpenBSD
+Use PIC on OpenBSD. Committed upstream:
+https://github.com/MLton/mlton/commit/5a580cc3d8d34910e8d39d95c2a47e21548dc403
 
 --- mlton/main/main.fun.orig	Mon Jun 13 08:25:46 2016
 +++ mlton/main/main.fun	Mon Jun 13 08:28:25 2016
