@@ -1,5 +1,5 @@
 COMMENT =    Ur/Web compiler and library
-V =          20160515
+V =          20161022
 DISTNAME =   urweb-${V}
 CATEGORIES = lang
 
